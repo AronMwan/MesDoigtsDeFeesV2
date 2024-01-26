@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Diagnostics;
 
 namespace MesDoigtsDeFees.Controllers
 {
@@ -74,26 +75,37 @@ namespace MesDoigtsDeFees.Controllers
         public IActionResult Roles(string userName)
         {
             MesDoigtsDeFeesUser user = _context.Users.FirstOrDefault(u => u.UserName == userName);
-            try { UserRolesViewModel roleViewModel = new UserRolesViewModel
+
+            try
             {
-                UserName = userName,
-                Roles = (from userRole in _context.UserRoles
-                         where userRole.UserId == user.Id
-                         orderby userRole.RoleId
-                         select userRole.RoleId).ToList()
-            };
+                UserRolesViewModel roleViewModel = new UserRolesViewModel
+                {
+                    UserName = userName,
+                    Roles = (from userRole in _context.UserRoles
+                             where userRole.UserId == user.Id
+                             orderby userRole.RoleId
+                             select userRole.RoleId).ToList()
+                };
+
                 ViewData["AllRoles"] = new MultiSelectList(_context.Roles.OrderBy(r => r.Name), "Id", "Name", roleViewModel.Roles);
+
                 return View(roleViewModel);
-            
             }
-        catch (Exception ex)
+            catch (Exception ex)
             {
-                string errorMsg = "Er is een fout opgetreden bij het ophalen van de rollen van de gebruiker.";
-                
-                Console.WriteLine(ex.Message + errorMsg);
-                return RedirectToAction("Index");
+
+                var errorViewModel = new ErrorViewModel
+                {
+                    RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                    // Voeg specifieke foutinformatie toe aan het ErrorViewModel
+                    ErrorMessage = ex.Message
+                };
+
+                // Stuur het foutenmodel naar de weergave voor foutafhandeling
+                return View("Error", errorViewModel);
             }
-    }
+        }
+
         [HttpPost]
         public IActionResult Roles([Bind("UserName, Roles")] UserRolesViewModel _model)
         {

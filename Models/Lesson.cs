@@ -7,10 +7,15 @@ namespace MesDoigtsDeFees.Models
     public class Lesson
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Veld is leeg")]
         [Display(Name = "Naam")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Veld is leeg")]
         [Display(Name = "Beschrijving")]
         public string Description { get; set; }
+
+        [Required(ErrorMessage = "Veld is leeg")]
         [Display(Name = "Type")]
         public string Type { get; set; }
         public List<string> TypeList { get; } = new List<string> { "Theorie", "Praktijk" };

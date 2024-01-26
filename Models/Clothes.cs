@@ -25,6 +25,8 @@ namespace MesDoigtsDeFees.Models
         [Display(Name = "Kledingstuk gestopt")]
         [DataType(DataType.Date)]
         public DateTime Ended { get; set; } = DateTime.MaxValue;
+
+        
     }
 
     public class ClothesIndexViewModel

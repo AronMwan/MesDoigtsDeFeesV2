@@ -27,6 +27,39 @@ public class MyDBContext : IdentityDbContext<MesDoigtsDeFeesUser>
         }
 
         Language.GetLanguages(context);
+
+        if (!context.Users.Any())
+        {
+            MesDoigtsDeFeesUser user = new MesDoigtsDeFeesUser
+            {
+                Id = "User",
+                UserName = "User",
+                FirstName = "User",
+                LastName = "User",
+                Email = "User@user.com",
+                PasswordHash = "Abc123!"
+
+            };
+
+            context.Users.Add(user);
+            context.SaveChanges();
+
+            MesDoigtsDeFeesUser admin = new MesDoigtsDeFeesUser
+            {
+                Id = "Admin",
+                UserName = "Admin",
+                FirstName = "Admin",
+                LastName = "Admin",
+                Email = "aron.mw12@gmail.com"
+            };
+            var result = await userManager.CreateAsync(admin, "Abc!12345");
+
+
+
+        }
+
+        MesDoigtsDeFeesUser dummyUser = context.Users.FirstOrDefault(g => g.UserName == "User");
+        MesDoigtsDeFeesUser dummyAdmin = context.Users.FirstOrDefault(g => g.UserName == "Admin");
         Group group = new Group();
         if (!context.Groups.Any())
         {
@@ -35,13 +68,20 @@ public class MyDBContext : IdentityDbContext<MesDoigtsDeFeesUser>
                                    {
                                        Name = "Dummy",
                                        Description = "DummyGroup",
-                                       Categorie = group.CategorieList[0]
+                                       Categorie = group.CategorieList[0],
+                                       UserId = dummyUser.Id,
+                                       GroupMaker = dummyUser,
+                                       GroupMakerName = dummyUser.UserName
+                                       
                                    },
                                    new Group
                                    {
                                        Name = "Dummy2",
                                        Description = "DummyGroup2",
-                                       Categorie = group.CategorieList[1]
+                                       Categorie = group.CategorieList[1],
+                                       UserId = dummyAdmin.Id,
+                                       GroupMaker = dummyAdmin,
+                                       GroupMakerName = dummyAdmin.UserName
                                    });
 
             context.SaveChanges();
@@ -224,38 +264,7 @@ public class MyDBContext : IdentityDbContext<MesDoigtsDeFeesUser>
         
 
 
-        if(!context.Users.Any())
-        {
-            MesDoigtsDeFeesUser user = new MesDoigtsDeFeesUser
-            {
-                Id = "User",
-                UserName = "User",
-                FirstName = "User",
-                LastName = "User",
-                Email = "User@user.com",
-                PasswordHash = "Abc123!"
-
-            };
-
-            context.Users.Add(user);
-            context.SaveChanges();
-
-            MesDoigtsDeFeesUser admin = new MesDoigtsDeFeesUser
-            {
-                Id = "Admin",
-                UserName = "Admin",
-                FirstName = "Admin",
-                LastName = "Admin",
-                Email = "aron.mw12@gmail.com"
-            };
-            var result = await userManager.CreateAsync(admin, "Abc!12345");
-
         
-
-        }
-
-        MesDoigtsDeFeesUser dummyUser = context.Users.FirstOrDefault(g => g.UserName == "User");
-        MesDoigtsDeFeesUser dummyAdmin = context.Users.FirstOrDefault(g => g.UserName == "Admin");
 
         AddParameters(context, dummyAdmin);
         if(!context.Roles.Any())

@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Categorie)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupMaker)
+            </th>
 
             
             <th></th>
@@ -42,11 +45,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Categorie)
           </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">@_localizer["Bijwerken"]</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">@_localizer["Details"]</a> |
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupMakerName)
+                </td>
+                <td>
+          @if(User.IsInRole("SystemAdministrator"))
+{
+            
+                <a asp-action="Details" asp-route-id="@item.Id">@_localizer["Details"]</a> 
                 <a asp-action="Delete" asp-route-id="@item.Id">@_localizer["Verwijderen"]</a>
-            </td>
+            
+}
+                </td>
+
         </tr>
 }
     </tbody>

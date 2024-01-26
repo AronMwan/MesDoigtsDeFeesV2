@@ -4,6 +4,7 @@ using MesDoigtsDeFees.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MesDoigtsDeFees.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    partial class MesDoigtsDeFeesContextModelSnapshot : ModelSnapshot
+    [Migration("20240126224902_GroupMaker")]
+    partial class GroupMaker
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,10 +150,6 @@ namespace MesDoigtsDeFees.Migrations
 
                     b.Property<string>("GroupMakerId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("GroupMakerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

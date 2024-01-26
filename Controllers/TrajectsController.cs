@@ -69,56 +69,7 @@ namespace MesDoigtsDeFees.Controllers
             return View(traject);
         }
 
-        // GET: Trajects/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Richtings == null)
-            {
-                return NotFound();
-            }
-
-            var traject = await _context.Richtings.FindAsync(id);
-            if (traject == null)
-            {
-                return NotFound();
-            }
-            return View(traject);
-        }
-
-        // POST: Trajects/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Started,Ended")] Richting traject)
-        {
-            if (id != traject.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(traject);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TrajectExists(traject.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(traject);
-        }
+       
 
         // GET: Trajects/Delete/5
         public async Task<IActionResult> Delete(int? id)

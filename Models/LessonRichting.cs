@@ -7,11 +7,13 @@ namespace MesDoigtsDeFees.Models
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Veld is leeg")]
         [Display(Name = "Naam")]
         public string name { get; set; }
         [ForeignKey("Lesson")]
         public int LessonId { get; set; }
         public Lesson Lesson { get; set; }
+
         [Display(Name = "Les")]
         public string LessonName { get; set; }
 

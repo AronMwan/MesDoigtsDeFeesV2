@@ -126,4 +126,7 @@
   <data name="Richting" xml:space="preserve">
     <value>Richting</value>
   </data>
+  <data name="Veld is leeg" xml:space="preserve">
+    <value>Veld is leeg</value>
+  </data>
 </root>

@@ -123,4 +123,7 @@
   <data name="Naam" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="Veld is leeg" xml:space="preserve">
+    <value>Field is empty</value>
+  </data>
 </root>

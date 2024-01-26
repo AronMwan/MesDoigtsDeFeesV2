@@ -75,60 +75,7 @@ namespace MesDoigtsDeFees.Controllers
             return View(lessonRichting);
         }
 
-        // GET: LessonRichtings/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.LessonRichtings == null)
-            {
-                return NotFound();
-            }
-
-            var lessonRichting = await _context.LessonRichtings.FindAsync(id);
-            if (lessonRichting == null)
-            {
-                return NotFound();
-            }
-            ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Id", lessonRichting.LessonId);
-            ViewData["RichtingId"] = new SelectList(_context.Richtings, "Id", "Id", lessonRichting.RichtingId);
-            return View(lessonRichting);
-        }
-
-        // POST: LessonRichtings/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,LessonId,LessonName,RichtingId,RichtingName")] LessonRichting lessonRichting)
-        {
-            if (id != lessonRichting.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(lessonRichting);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LessonRichtingExists(lessonRichting.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Id", lessonRichting.LessonId);
-            ViewData["RichtingId"] = new SelectList(_context.Richtings, "Id", "Id", lessonRichting.RichtingId);
-            return View(lessonRichting);
-        }
+        
 
         // GET: LessonRichtings/Delete/5
         public async Task<IActionResult> Delete(int? id)

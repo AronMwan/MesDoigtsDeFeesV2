@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using MesDoigtsDeFees.Areas.Identity.Data;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.OpenApi.Models;
+using MesDoigtsDeFees.Services;
 //using MesDoigtsDeFees.Services;
 //using Microsoft.AspNetCore.Identity.UI.Services;
 //using MesDoigtsDeFees.Services;
@@ -89,12 +90,17 @@ var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(sup
     .AddSupportedUICultures(supportedCultures);
 app.UseRequestLocalization(localizationOptions);
 
+app.UseMiddleware<ThemeMiddleware>();
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCookiePolicy();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-//app.UseMiddleware<UserStats>();
 
 app.UseEndpoints(endpoints => 
 { 
