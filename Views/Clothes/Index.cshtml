@@ -1,17 +1,19 @@
 ﻿@model MesDoigtsDeFees.Models.ClothesIndexViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Kledingstukken</h1>
+<h1>@_localizer["Kledingstukken"]</h1>
 <p>
-    <a asp-action="Create">Maak een nieuw kledingstuk aan</a>
+    <a asp-action="Create">@_localizer["Voeg een nieuw kledingstuk toe"]</a>
 </p>
 <form asp-controller="Clothes" asp-action="Index" method="get">
     <h4>
         <select asp-for="SelectedSize" asp-items="Model.SizeList" onchange="this.form.submit()">
-            <option value="Alle">Kies Maat</option>
+            <option value="Alle">@_localizer["Kies Maat"]</option>
         </select>
 
     </h4>
@@ -21,13 +23,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayName("Naam")
+                @_localizer["Naam"]
             </th>
             <th>
-                @Html.DisplayName("Beschrijving")
+                @_localizer["Beschrijving"]
             </th>
             <th>
-                @Html.DisplayName("Maat")
+                @_localizer["Maat"]
             </th>
             <th></th>
         </tr>
@@ -46,9 +48,9 @@
                     @Html.DisplayFor(modelItem => item.Size)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Bijwerken</a>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">@_localizer["Bijwerken"]</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">@_localizer["Details"]</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">@_localizer["Verwijderen"]</a>
                 </td>
             </tr>
         }

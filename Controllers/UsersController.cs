@@ -74,7 +74,7 @@ namespace MesDoigtsDeFees.Controllers
         public IActionResult Roles(string userName)
         {
             MesDoigtsDeFeesUser user = _context.Users.FirstOrDefault(u => u.UserName == userName);
-            UserRolesViewModel roleViewModel = new UserRolesViewModel
+            try { UserRolesViewModel roleViewModel = new UserRolesViewModel
             {
                 UserName = userName,
                 Roles = (from userRole in _context.UserRoles
@@ -82,10 +82,18 @@ namespace MesDoigtsDeFees.Controllers
                          orderby userRole.RoleId
                          select userRole.RoleId).ToList()
             };
-            ViewData["AllRoles"] = new MultiSelectList(_context.Roles.OrderBy(r => r.Name), "Id", "Name", roleViewModel.Roles);
-            return View(roleViewModel);
-        }
-
+                ViewData["AllRoles"] = new MultiSelectList(_context.Roles.OrderBy(r => r.Name), "Id", "Name", roleViewModel.Roles);
+                return View(roleViewModel);
+            
+            }
+        catch (Exception ex)
+            {
+                string errorMsg = "Er is een fout opgetreden bij het ophalen van de rollen van de gebruiker.";
+                
+                Console.WriteLine(ex.Message + errorMsg);
+                return RedirectToAction("Index");
+            }
+    }
         [HttpPost]
         public IActionResult Roles([Bind("UserName, Roles")] UserRolesViewModel _model)
         {

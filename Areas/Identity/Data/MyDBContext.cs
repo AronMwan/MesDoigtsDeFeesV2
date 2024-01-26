@@ -131,11 +131,11 @@ public class MyDBContext : IdentityDbContext<MesDoigtsDeFeesUser>
 
         if (!context.LessonRichtings.Any())
         {
-            if (dummyLesson1 != null && dummyLesson2 != null && dummyRichting1 != null && dummyRichting2 != null)
-            {
+           
                 context.LessonRichtings.AddRange(
                     new LessonRichting
                     {
+                        name = "Dummy",
                         LessonId = dummyLesson1.Id,
                         RichtingId = dummyRichting1.Id,
                         LessonName = dummyLesson1.Name,
@@ -143,6 +143,7 @@ public class MyDBContext : IdentityDbContext<MesDoigtsDeFeesUser>
                     },
                     new LessonRichting
                     {
+                        name = "Dummy2",
                         LessonId = dummyLesson2.Id,
                         RichtingId = dummyRichting2.Id,
                         LessonName = dummyLesson2.Name,
@@ -150,6 +151,7 @@ public class MyDBContext : IdentityDbContext<MesDoigtsDeFeesUser>
                     },
                     new LessonRichting
                     {
+                        name = "Dummy3",
                         LessonId = dummyLesson3.Id,
                         RichtingId = dummyRichting1.Id,
                         LessonName = dummyLesson3.Name,
@@ -157,15 +159,16 @@ public class MyDBContext : IdentityDbContext<MesDoigtsDeFeesUser>
                     },
                     new LessonRichting
                     {
+                        name = "Dummy4",
                         LessonId = dummyLesson4.Id,
                         RichtingId = dummyRichting2.Id,
                         LessonName = dummyLesson4.Name,
                         RichtingName = dummyRichting2.Name
                     }
-                );
+                ); 
 
                 context.SaveChanges();
-            }
+            
         }
 
 
@@ -254,6 +257,7 @@ public class MyDBContext : IdentityDbContext<MesDoigtsDeFeesUser>
         MesDoigtsDeFeesUser dummyUser = context.Users.FirstOrDefault(g => g.UserName == "User");
         MesDoigtsDeFeesUser dummyAdmin = context.Users.FirstOrDefault(g => g.UserName == "Admin");
 
+        AddParameters(context, dummyAdmin);
         if(!context.Roles.Any())
         {
             context.Roles.AddRange(
@@ -287,7 +291,30 @@ public class MyDBContext : IdentityDbContext<MesDoigtsDeFeesUser>
     }
 
 
+    static void AddParameters(MyDBContext context, MesDoigtsDeFeesUser user)
+    {
+        if (!context.Parameters.Any())
+        {
+            context.Parameters.AddRange(
+                new Parameter { Name = "Version", Value = "0.1.0", Description = "Huidige versie van de parameterlijst", Destination = "System", UserId = user.Id },
+                new Parameter { Name = "Mail.Server", Value = "ergens.groupspace.be", Description = "Naam van de gebruikte pop-server", Destination = "Mail", UserId = user.Id },
+                new Parameter { Name = "Mail.Port", Value = "25", Description = "Poort van de smtp-server", Destination = "Mail", UserId = user.Id },
+                new Parameter { Name = "Mail.Account", Value = "SmtpServer", Description = "Acount-naam van de smtp-server", Destination = "Mail", UserId = user.Id },
+                new Parameter { Name = "Mail.Password", Value = "xxxyyy!2315", Description = "Wachtwoord van de smtp-server", Destination = "Mail", UserId = user.Id },
+                new Parameter { Name = "Mail.Security", Value = "true", Description = "Is SSL or TLS encryption used (true or false)", Destination = "Mail", UserId = user.Id },
+                new Parameter { Name = "Mail.SenderEmail", Value = "administrator.groupspace.be", Description = "E-mail van de smtp-verzender", Destination = "Mail", UserId = user.Id },
+                new Parameter { Name = "Mail.SenderName", Value = "Administrator", Description = "Naam van de smtp-verzender", Destination = "Mail", UserId = user.Id }
+            );
+            context.SaveChanges();
+        }
 
+        Globals.Parameters = new Dictionary<string, Parameter>();
+        foreach (Parameter parameter in context.Parameters)
+        {
+            Globals.Parameters[parameter.Name] = parameter;
+        }
+        Globals.ConfigureMail();
+    }
 
     public DbSet<MesDoigtsDeFees.Models.Group> Groups { get; set; } = default!;
 
@@ -298,8 +325,10 @@ public class MyDBContext : IdentityDbContext<MesDoigtsDeFeesUser>
     public DbSet<MesDoigtsDeFees.Models.Clothes> Clothes { get; set; } = default!;
 
     public DbSet<MesDoigtsDeFees.Models.LessonRichting> LessonRichtings { get; set; } = default!;
+
     public DbSet<MesDoigtsDeFees.Models.Language> Languages { get; set; } = default!;
 
+    public DbSet<MesDoigtsDeFees.Models.Parameter> Parameters { get; set; } = default!;
 
 
 
@@ -311,4 +340,9 @@ public class MyDBContext : IdentityDbContext<MesDoigtsDeFeesUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+
+
+
+
 }

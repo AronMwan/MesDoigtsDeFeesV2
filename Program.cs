@@ -4,6 +4,13 @@ using Microsoft.AspNetCore.Identity;
 using MesDoigtsDeFees.Areas.Identity.Data;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.OpenApi.Models;
+//using MesDoigtsDeFees.Services;
+//using Microsoft.AspNetCore.Identity.UI.Services;
+//using MesDoigtsDeFees.Services;
+//using NETCore.MailKit.Infrastructure.Internal;
+
+
+
 
 
 
@@ -23,6 +30,19 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Translation
 builder.Services.AddMvc()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization();
+
+//builder.Services.AddTransient<IEmailSender, MailKitEmailSender>();
+
+//builder.Services.Configure<MailKitOptions>(options =>
+//{
+//    options.Server = builder.Configuration["ExternalProviders:MailKit:SMTP:Address"];
+//    options.Port = Convert.ToInt32(builder.Configuration["ExternalProviders:MailKit:SMTP:Port"]);
+//    options.Account = builder.Configuration["ExternalProviders:MailKit:SMTP:Account"];
+//    options.Password = builder.Configuration["ExternalProviders:MailKit:SMTP:Password"];
+//    options.SenderEmail = builder.Configuration["ExternalProviders:MailKit:SMTP:SenderEmail"];
+//    options.SenderName = builder.Configuration["ExternalProviders:MailKit:SMTP:SenderName"];
+//    options.Security = true;  
+//});
 
 // Add services for RESTFull API
 builder.Services.AddControllers();

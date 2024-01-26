@@ -250,6 +250,10 @@ namespace MesDoigtsDeFees.Migrations
                     b.Property<DateTime>("Started")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LessonId");
@@ -257,6 +261,38 @@ namespace MesDoigtsDeFees.Migrations
                     b.HasIndex("RichtingId");
 
                     b.ToTable("LessonRichtings");
+                });
+
+            modelBuilder.Entity("MesDoigtsDeFees.Models.Parameter", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Destination")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastChanged")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Obsolete")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("Parameters");
                 });
 
             modelBuilder.Entity("MesDoigtsDeFees.Models.Richting", b =>

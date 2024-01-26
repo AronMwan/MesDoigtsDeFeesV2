@@ -1,12 +1,13 @@
 ﻿@model MesDoigtsDeFees.Models.Lesson
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Maak een nieuwe les aan</h1>
+<h1>@_localizer["Maak een nieuwe les aan"]</h1>
 
-<h4>Les</h4>
+<h4>@_localizer["Les"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -26,7 +27,7 @@
             <div class="form-group">
                 <label asp-for="Type" class="control-label"></label>
                 <select asp-for="Type" asp-items="@(new SelectList(ViewBag.TypeList))" class="form-control">
-                    <option value="">Selecteer een type</option>
+                    <option value="">@_localizer["Selecteer een type"]</option>
                 </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
@@ -34,7 +35,7 @@
             <div class="form-group">
                 <label asp-for="GroupId" class="control-label">Group</label>
                 <select asp-for="GroupId" asp-items="@(ViewBag.GroupList)" class="form-control">
-                    <option value="">Selecteer een groep</option>
+                    <option value="">@_localizer["Selecteer een groep"]</option>
                 </select>
                 <span asp-validation-for="GroupId" class="text-danger"></span>
             </div>
@@ -45,14 +46,14 @@
 
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value=@_localizer["Aanmaken"] class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Terug naar lijst</a>
+    <a asp-action="Index">@_localizer["Terug naar lijst"]</a>
 </div>
 
 @section Scripts {

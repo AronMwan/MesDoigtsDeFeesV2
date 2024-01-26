@@ -1,18 +1,22 @@
 ﻿@model IEnumerable<MesDoigtsDeFees.Models.LessonRichting>
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer _localizer
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Trajecten</h1>
+<h1>@_localizer["Trajecten"]</h1>
 
 <p>
-    <a asp-action="Create">Maak een nieuwe traject aan</a>
+    <a asp-action="Create">@_localizer["Maak een nieuwe traject aan"]</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
            
             <th>
                 @Html.DisplayNameFor(model => model.Richting)
@@ -28,18 +32,21 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RichtingName)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RichtingName)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LessonName)
             </td>
            
             
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Bijwerken</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">@_localizer["Bijwerken"]</a> 
+                <a asp-action="Details" asp-route-id="@item.Id">@_localizer["Details"]</a> 
+                <a asp-action="Delete" asp-route-id="@item.Id">@_localizer["Verwijderen"]</a>
             </td>
         </tr>
 }

@@ -37,8 +37,8 @@ namespace MesDoigtsDeFees.Controllers
                     .ToList();
             List<ListItem> list = new List<ListItem>()
         {
-            new ListItem() { Text = "Theorie", Value = "Theorie" },
-            new ListItem() { Text = "Praktijk", Value = "Praktijk" },
+            new ListItem() { Text = _localizer["Theorie"], Value = _localizer["Theorie"] },
+            new ListItem() { Text = _localizer["Praktijk"], Value = _localizer["Praktijk"] },
         };
 
             LessonIndexViewModel viewModel = new LessonIndexViewModel();

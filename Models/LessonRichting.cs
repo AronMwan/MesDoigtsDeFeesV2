@@ -6,6 +6,9 @@ namespace MesDoigtsDeFees.Models
     public class LessonRichting
     {
         public int Id { get; set; }
+
+        [Display(Name = "Naam")]
+        public string name { get; set; }
         [ForeignKey("Lesson")]
         public int LessonId { get; set; }
         public Lesson Lesson { get; set; }

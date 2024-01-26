@@ -132,11 +132,20 @@
   <data name="Onderwijs" xml:space="preserve">
     <value>Onderwijs</value>
   </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
   <data name="Privacy" xml:space="preserve">
     <value>Privacy</value>
   </data>
   <data name="Richtingen" xml:space="preserve">
     <value>Richtingen</value>
+  </data>
+  <data name="Systeem" xml:space="preserve">
+    <value>Systeem</value>
+  </data>
+  <data name="Talen" xml:space="preserve">
+    <value>Talen</value>
   </data>
   <data name="Trajecten" xml:space="preserve">
     <value>Trajecten</value>
